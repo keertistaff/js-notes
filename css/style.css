@@ -1,0 +1,795 @@
+/* ==========================================================================
+   TutorialsPoint-Inspired Minimal JavaScript Tutorial Stylesheet (style.css)
+   Clean, simple, mobile-first responsive design.
+   Primary Accent Color: Blue (#0d6efd / #3b82f6)
+   System-detected theme (automatic light/dark based on OS setting).
+   ========================================================================== */
+
+/* 1. Light Mode Colors (Default) */
+:root {
+  --tp-blue: #0d6efd;
+  --tp-blue-hover: #0b5ed7;
+  --tp-blue-light: #e7f1ff;
+
+  --bg-body: #ffffff;
+  --bg-sidebar: #f8f9fa;
+  --bg-card: #ffffff;
+  --bg-code: #f6f8fa;
+  --bg-terminal: #1e1e1e;
+  --border-color: #e5e7eb;
+  --border-dark: #cbd5e1;
+
+  --text-main: #212529;
+  --text-muted: #6c757d;
+  --text-heading: #111827;
+
+  --header-height: 52px;
+  --sidebar-width: 270px;
+  --content-max-width: 880px;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: Consolas, "SFMono-Regular", Menlo, Monaco, "Courier New", monospace;
+}
+
+/* 2. System-Detected Dark Mode (Automatic based on OS setting) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --tp-blue: #3b82f6;
+    --tp-blue-hover: #2563eb;
+    --tp-blue-light: #172554;
+
+    --bg-body: #121820;
+    --bg-sidebar: #182230;
+    --bg-card: #1c2838;
+    --bg-code: #16202c;
+    --bg-terminal: #0b1016;
+    --border-color: #2a3b50;
+    --border-dark: #374d68;
+
+    --text-main: #e2e8f0;
+    --text-muted: #94a3b8;
+    --text-heading: #f8fafc;
+  }
+}
+
+/* 3. Base Reset & Typography */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-body);
+  color: var(--text-main);
+  line-height: 1.65;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+a {
+  color: var(--tp-blue);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* 4. Top Header */
+.tp-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-height);
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  z-index: 1000;
+  gap: 12px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.tp-brand {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text-heading);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.tp-logo-badge {
+  background: var(--tp-blue);
+  color: #ffffff;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-family: var(--font-mono);
+}
+
+.tp-brand-text {
+  display: inline-block;
+}
+
+/* Mobile Hamburger Button */
+.mobile-toggle {
+  display: none;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 5px 10px;
+  font-size: 1.15rem;
+  color: var(--text-main);
+  cursor: pointer;
+  line-height: 1;
+}
+
+.mobile-toggle:hover {
+  background: var(--bg-sidebar);
+}
+
+/* Search Bar (Clean & Adaptive) */
+.header-search {
+  position: relative;
+  width: 320px;
+  max-width: 100%;
+}
+
+.search-input {
+  width: 100%;
+  padding: 7px 32px 7px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 0.85rem;
+  background: var(--bg-sidebar);
+  color: var(--text-main);
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.search-input:focus {
+  border-color: var(--tp-blue);
+  background: var(--bg-card);
+  box-shadow: 0 0 0 2px rgba(13, 110, 253, 0.18);
+}
+
+.search-icon-label {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  pointer-events: none;
+}
+
+.search-results-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  max-height: 380px;
+  overflow-y: auto;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  display: none;
+  z-index: 1050;
+}
+
+.search-item {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border-color);
+  cursor: pointer;
+  font-size: 0.85rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.search-item:last-child {
+  border-bottom: none;
+}
+
+.search-item:hover, .search-item.selected {
+  background: var(--tp-blue-light);
+  color: var(--tp-blue);
+}
+
+.search-item-part {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.search-item-title {
+  font-weight: 600;
+  color: var(--text-heading);
+}
+
+.search-empty {
+  padding: 14px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+/* 5. Main Layout Structure */
+.tp-layout {
+  display: flex;
+  margin-top: var(--header-height);
+  min-height: calc(100vh - var(--header-height));
+}
+
+/* 6. Left Sidebar: Table of Contents (TOC) */
+.tp-sidebar {
+  width: var(--sidebar-width);
+  background: var(--bg-sidebar);
+  border-right: 1px solid var(--border-color);
+  position: fixed;
+  top: var(--header-height);
+  bottom: 0;
+  left: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0.75rem 0 2rem 0;
+  z-index: 900;
+  -webkit-overflow-scrolling: touch;
+}
+
+.tp-sidebar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.tp-sidebar::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 3px;
+}
+
+/* Sidebar Top Mobile Header (Title + Close Button) */
+.sidebar-mobile-header {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 1.25rem;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 8px;
+}
+
+.sidebar-mobile-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text-heading);
+}
+
+.sidebar-close-btn {
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px 8px;
+  line-height: 1;
+}
+
+.toc-header-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  padding: 4px 1.25rem 8px 1.25rem;
+}
+
+.toc-section {
+  margin-bottom: 10px;
+}
+
+.toc-category-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  padding: 6px 1.25rem;
+  background: rgba(0, 0, 0, 0.02);
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.toc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.toc-link {
+  display: block;
+  padding: 7px 1.25rem;
+  font-size: 0.85rem;
+  color: var(--text-main);
+  text-decoration: none;
+  border-left: 3px solid transparent;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.toc-link:hover {
+  background: rgba(0, 0, 0, 0.04);
+  color: var(--tp-blue);
+  text-decoration: none;
+}
+
+.toc-link.active {
+  background: var(--tp-blue-light);
+  color: var(--tp-blue);
+  font-weight: 700;
+  border-left-color: var(--tp-blue);
+}
+
+/* 7. Main Content Area */
+.tp-main-content {
+  flex: 1;
+  margin-left: var(--sidebar-width);
+  padding: 2rem 3rem 4rem 3rem;
+  background: var(--bg-body);
+  display: flex;
+  justify-content: center;
+  min-width: 0;
+}
+
+.content-wrapper {
+  width: 100%;
+  max-width: var(--content-max-width);
+  min-width: 0;
+}
+
+/* Navigation Buttons Bar (< Previous | Next >) */
+.nav-buttons-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  gap: 10px;
+}
+
+.nav-buttons-bar.bottom {
+  margin-top: 2.5rem;
+  margin-bottom: 0;
+  border-top: 1px solid var(--border-color);
+  border-bottom: none;
+  padding-top: 1.5rem;
+}
+
+.btn-tp-nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: var(--bg-card);
+  border: 1px solid var(--tp-blue);
+  color: var(--tp-blue);
+  padding: 7px 18px;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  min-height: 38px;
+  white-space: nowrap;
+}
+
+.btn-tp-nav:hover {
+  background: var(--tp-blue);
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.btn-tp-nav.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+  border-color: var(--border-color);
+  color: var(--text-muted);
+}
+
+/* Heading & Divider */
+.page-title {
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+  word-wrap: break-word;
+}
+
+.title-divider {
+  border: none;
+  border-top: 3px solid var(--tp-blue);
+  margin-bottom: 1.5rem;
+  width: 60px;
+}
+
+/* Content Body */
+.content-body p {
+  margin-bottom: 1.25rem;
+  color: var(--text-main);
+  line-height: 1.7;
+}
+
+.content-body h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin: 1.75rem 0 0.75rem 0;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.content-body h3 i {
+  color: var(--tp-blue);
+  font-size: 1.05rem;
+}
+
+.btn-tp-nav i {
+  font-size: 0.85rem;
+}
+
+.btn-code i {
+  margin-right: 3px;
+  font-size: 0.8rem;
+}
+
+.content-body ul, .content-body ol {
+  margin: 0 0 1.25rem 1.5rem;
+}
+
+.content-body li {
+  margin-bottom: 0.5rem;
+}
+
+/* Formal Definition Callout */
+.definition-box {
+  background: var(--bg-sidebar);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--tp-blue);
+  padding: 12px 18px;
+  border-radius: 4px;
+  margin: 1rem 0 1.5rem 0;
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.definition-box strong {
+  color: var(--tp-blue);
+  font-weight: 700;
+}
+
+/* Logical Reasoning & Step-by-Step Logic */
+.reasoning-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 1.5rem 0;
+}
+
+.reasoning-item {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 10px;
+  background: var(--bg-sidebar);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 12px 16px;
+}
+
+.reasoning-badge {
+  background: var(--tp-blue);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.78rem;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.reasoning-content {
+  flex: 1;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.reasoning-title {
+  font-weight: 700;
+  color: var(--text-heading);
+  margin-bottom: 2px;
+}
+
+/* Explanation Notes */
+.explain-note {
+  background: var(--tp-blue-light);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--tp-blue);
+  padding: 10px 16px;
+  border-radius: 4px;
+  margin: 1rem 0;
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+/* Syntax Box */
+.syntax-box {
+  background: var(--bg-code);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--tp-blue);
+  padding: 12px 16px;
+  margin: 1rem 0 1.5rem 0;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Code Example Box */
+.code-box-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  margin: 1.25rem 0 1.75rem 0;
+  overflow: hidden;
+  width: 100%;
+}
+
+.code-box-header {
+  background: var(--bg-sidebar);
+  border-bottom: 1px solid var(--border-color);
+  padding: 7px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.code-box-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.code-box-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-code {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  padding: 4px 12px;
+  border-radius: 3px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-main);
+  cursor: pointer;
+  min-height: 28px;
+}
+
+.btn-code:hover {
+  background: var(--border-color);
+}
+
+.btn-code-run {
+  background: var(--tp-blue);
+  border-color: var(--tp-blue);
+  color: #ffffff;
+}
+
+.btn-code-run:hover {
+  background: var(--tp-blue-hover);
+}
+
+.code-textarea {
+  width: 100%;
+  min-height: 120px;
+  padding: 12px;
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  line-height: 1.5;
+  border: none;
+  background: var(--bg-code);
+  color: var(--text-main);
+  outline: none;
+  resize: vertical;
+  white-space: pre;
+  tab-size: 2;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Output Display Box */
+.output-box {
+  background: var(--bg-terminal);
+  color: #d4d4d4;
+  border-top: 1px solid var(--border-color);
+  font-family: var(--font-mono);
+  font-size: 0.84rem;
+  padding: 10px 14px;
+  max-height: 220px;
+  overflow-y: auto;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+  -webkit-overflow-scrolling: touch;
+}
+
+.output-header-title {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #888;
+  margin-bottom: 4px;
+}
+
+/* Minimal Project Demo Box (for Part 26) */
+.project-demo-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  overflow-x: auto;
+}
+
+/* Footer */
+.tp-footer {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+/* 8. Responsive & Mobile Styling */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+  z-index: 1050;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.sidebar-overlay.active {
+  display: block;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Tablets (max-width: 1024px) */
+@media (max-width: 1024px) {
+  .tp-main-content {
+    padding: 1.5rem 2rem 3rem 2rem;
+  }
+}
+
+/* Mobile & Small Screens (max-width: 860px) */
+@media (max-width: 860px) {
+  .mobile-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tp-sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: min(300px, 85vw);
+    background: var(--bg-card);
+    z-index: 1100;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease-in-out;
+    box-shadow: none;
+    padding-top: 0;
+  }
+
+  .tp-sidebar.open {
+    transform: translateX(0);
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.3);
+  }
+
+  .sidebar-mobile-header {
+    display: flex;
+  }
+
+  .tp-main-content {
+    margin-left: 0;
+    padding: 1.25rem 1rem 3rem 1rem;
+    width: 100%;
+  }
+
+  .header-search {
+    width: auto;
+    flex: 1;
+    max-width: 300px;
+  }
+
+  .search-input {
+    font-size: 16px; /* Prevents auto-zoom on iOS safari */
+  }
+
+  .code-textarea {
+    font-size: 14px;
+  }
+
+  .page-title {
+    font-size: 1.5rem;
+  }
+}
+
+/* Very Small Mobile Screens (max-width: 480px) */
+@media (max-width: 480px) {
+  .tp-header {
+    padding: 0 0.75rem;
+    gap: 8px;
+  }
+
+  .tp-brand-text {
+    display: none; /* Hide brand text to keep search bar visible on tiny screens */
+  }
+
+  .header-search {
+    max-width: 100%;
+  }
+
+  .search-input {
+    padding-left: 8px;
+  }
+
+  .btn-tp-nav {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+}

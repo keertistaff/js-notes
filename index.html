@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="description" content="TS Tech'nSyntax Academy - Clean, simple, mobile-friendly JavaScript Tutorial & Reference with instant search, responsive TOC, clear headings, and concise main content with runnable examples.">
+  <title>Tech'nSyntax Academy - JavaScript Tutorial &amp; Reference</title>
+
+  <!-- Favicon with TS Branding -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2216%22 fill=%22%230d6efd%22/><text y=%2268%22 x=%2250%22 font-family=%22sans-serif%22 font-weight=%22900%22 font-size=%2244%22 text-anchor=%22middle%22 fill=%22white%22>TS</text></svg>">
+
+  <!-- Free FontAwesome 6 CDN Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Minimal Responsive Stylesheet (System-detected dark/light mode) -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Minimal Header: Mobile Hamburger, Brand, and Search Bar -->
+  <header class="tp-header">
+    <div class="header-left">
+      <!-- Hamburger Menu for Mobile -->
+      <button id="mobile-toggle" class="mobile-toggle" aria-label="Open Table of Contents">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <!-- Brand Identity: TS Tech'nSyntax Academy -->
+      <a href="#js-home" class="tp-brand" title="Tech'nSyntax Academy Home">
+        <span class="tp-logo-badge">TS</span>
+        <span class="tp-brand-text">Tech'nSyntax Academy</span>
+      </a>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="header-search">
+      <input 
+        type="text" 
+        id="global-search-input" 
+        class="search-input" 
+        placeholder="Search tutorial... (Ctrl+K)" 
+        autocomplete="off"
+        aria-label="Search JavaScript topics"
+      >
+      <span class="search-icon-label"><i class="fa-solid fa-magnifying-glass"></i></span>
+      <div id="search-dropdown" class="search-results-dropdown"></div>
+    </div>
+  </header>
+
+  <!-- Main Layout -->
+  <div class="tp-layout">
+
+    <!-- Left Sidebar: Table of Contents (TOC) -->
+    <aside class="tp-sidebar" id="sidebar" aria-label="Table of Contents">
+      <!-- Mobile Close Header -->
+      <div class="sidebar-mobile-header">
+        <span class="sidebar-mobile-title"><i class="fa-solid fa-book-open"></i> Table of Contents</span>
+        <button id="sidebar-close-btn" class="sidebar-close-btn" aria-label="Close Table of Contents">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="toc-header-title">JavaScript Curriculum</div>
+      <div id="toc-tree">
+        <!-- Rendered dynamically from SYLLABUS_DATA by app.js -->
+      </div>
+    </aside>
+
+    <!-- Overlay backdrop for mobile drawer -->
+    <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+    <!-- Main Content Area: Heading & Clean Content -->
+    <main class="tp-main-content">
+      <div class="content-wrapper">
+        <div id="main-content-target">
+          <!-- Rendered dynamically by Navigation & ContentStore -->
+        </div>
+
+        <footer class="tp-footer">
+          <p><i class="fa-solid fa-graduation-cap"></i> <strong>Tech'nSyntax Academy</strong> &bull; Complete JavaScript Tutorial &amp; Reference</p>
+        </footer>
+      </div>
+    </main>
+
+  </div>
+
+  <!-- JavaScript Modules -->
+  <!-- 1. Syllabus Metadata & Linear Index -->
+  <script src="js/syllabus-meta.js"></script>
+
+  <!-- 2. Topic Data Modules (Parts 1 to 26) -->
+  <script src="js/data/part1-fundamentals.js"></script>
+  <script src="js/data/part2-operators.js"></script>
+  <script src="js/data/part3-conditions.js"></script>
+  <script src="js/data/part4-loops.js"></script>
+  <script src="js/data/part5-strings.js"></script>
+  <script src="js/data/part6-numbers.js"></script>
+  <script src="js/data/part7-part8-functions-timers.js"></script>
+  <script src="js/data/part9-part10-objects-scope.js"></script>
+  <script src="js/data/part11-part12-dates-arrays.js"></script>
+  <script src="js/data/part13-part14-sets-maps-iterations.js"></script>
+  <script src="js/data/part15-part16-math-regex.js"></script>
+  <script src="js/data/part17-part18-types-errors.js"></script>
+  <script src="js/data/part19-part20-dom-events.js"></script>
+  <script src="js/data/part21-part23-bom-fetch-webapis.js"></script>
+  <script src="js/data/part24-advanced.js"></script>
+  <script src="js/data/part25-ajax-jquery.js"></script>
+  <script src="js/data/part26-projects.js"></script>
+
+  <!-- 3. Core Functional Modules -->
+  <script src="js/runner.js"></script>
+  <script src="js/content-store.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/navigation.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
